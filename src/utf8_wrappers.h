@@ -24,15 +24,17 @@ FILE *popen_utf8(const char *command, const char *mode);
 #endif
 
 #ifdef loslib_c
-int remove_utf8(const char *pathname);
-int rename_utf8(const char *oldpath, const char *newpath);
-int system_utf8(const char *command);
+#include <windows.h>
+_ACRTIMP remove_utf8(const char *pathname);
+_ACRTIMP rename_utf8(const char *oldpath, const char *newpath);
+_ACRTIMP system_utf8(const char *command);
 #define remove              remove_utf8
 #define rename              rename_utf8
 #define system              system_utf8
 #endif
 
 #ifdef loadlib_c
+#include <windows.h>
 DWORD GetModuleFileNameA_utf8(HMODULE hModule, LPSTR lpFilename, DWORD nSize);
 HMODULE LoadLibraryExA_utf8(LPCSTR lpLibFileName, HANDLE hFile, DWORD dwFlags);
 #define GetModuleFileNameA  GetModuleFileNameA_utf8

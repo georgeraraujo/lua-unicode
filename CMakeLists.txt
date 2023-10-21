@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 3.5)
-project(Lua VERSION 5.2.4 LANGUAGES C)
+project(Lua VERSION 5.4.6 LANGUAGES C)
 
 if(NOT EXISTS "${CMAKE_CURRENT_SOURCE_DIR}/src/luaconf.h")
   message(FATAL_ERROR "Run \"cmake -P prepare-sources.cmake\" and change dirs.")
@@ -13,8 +13,8 @@ set(LUA_TO_INC lua.h luaconf.h lualib.h lauxlib.h lua.hpp)
 set(LUA_CORE_SOURCES lapi.c lcode.c lctype.c ldebug.c ldo.c ldump.c lfunc.c
   lgc.c llex.c lmem.c lobject.c lopcodes.c lparser.c lstate.c lstring.c ltable.c
   ltm.c lundump.c lvm.c lzio.c)
-set(LUA_LIB_SOURCES lauxlib.c lbaselib.c lbitlib.c lcorolib.c ldblib.c liolib.c
-  lmathlib.c loslib.c lstrlib.c ltablib.c loadlib.c linit.c)
+set(LUA_LIB_SOURCES lauxlib.c lbaselib.c lcorolib.c ldblib.c liolib.c
+  lmathlib.c loadlib.c loslib.c lstrlib.c ltablib.c lutf8lib.c linit.c)
 set(LUA_SOURCES)
 foreach(_src IN LISTS LUA_CORE_SOURCES LUA_LIB_SOURCES)
   list(APPEND LUA_SOURCES "src/${_src}")
@@ -26,7 +26,7 @@ endforeach()
 # Extra sources.
 list(APPEND LUA_SOURCES src/utf8_wrappers.c)
 
-add_definitions(-DLUA_COMPAT_ALL)
+add_definitions(-DLUA_COMPAT_5_3)
 if(WIN32)
   add_definitions(-DLUA_BUILD_AS_DLL
     -DWIN32_LEAN_AND_MEAN -D_CRT_SECURE_NO_DEPRECATE)
